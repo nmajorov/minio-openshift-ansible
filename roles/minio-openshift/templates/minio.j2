@@ -17,6 +17,9 @@ spec:
         deploymentconfig: minio
     spec:
       volumes:
+        - name: minio-storage
+          persistentVolumeClaim:
+            claimName: minio-pvc
         - name: secret-volume
           secret:
             secretName: {{ tsl_secret_name }}
@@ -44,6 +47,8 @@ spec:
           volumeMounts:
             - name: secret-volume
               mountPath: /root/.minio/certs
+            - name: minio-storage
+              mountPath: /data
 ---
 apiVersion: v1
 kind: Service
@@ -219,3 +224,17 @@ metadata:
   name: {{ tsl_secret_name }}
   namespace: {{ minio_namespace }}
 type: kubernetes.io/tls
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+  namespace: {{ minio_namespace }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

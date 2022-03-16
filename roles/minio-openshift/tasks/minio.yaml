@@ -1,0 +1,47 @@
+---
+- name: Create Namespace
+  kubernetes.core.k8s:
+    state: present
+    kubeconfig: "{{ kubeconfig }}"
+    definition:
+      kind: Namespace
+      apiVersion: v1
+      metadata:
+        name: "{{ minio_namespace }}"
+
+
+
+# - name: Create tls secret
+#   ansible.builtin.shell: |
+#     openssl genrsa -out niko.key 2048
+#     echo "generate csr"
+#     openssl req -new -key niko.key -out niko.csr  \
+#     -subj "/C=CH/ST=Geneva/L=Geneva/O=IT/OU=IT/CN=www.redhat.com"
+#
+#     echo "generate self signed cert"
+#     openssl x509 -req -days 666 -in niko.csr  \
+#       -signkey niko.key -out niko.crt
+#
+#     oc create secret tls {{ tsl_secret_name }} --cert=niko.crt --key=niko.key -n {{ minio_namespace }}
+
+# install and configure integration operator
+
+- name: "install minio"
+  kubernetes.core.k8s:
+    state: present
+    kubeconfig: "{{ kubeconfig }}"
+    namespace: "{{ minio_namespace }}"
+    template:
+      minio.j2
+  register: dc
+
+#
+# - name: "create route"
+#   shell: |
+#     oc project {{minio_namespace}}
+#     oc project
+#     oc create route edge console \
+#       --service minio --port 9001 \
+#       --cert=niko.crt \
+#       --key=niko.key \
+#       --insecure-policy=Redirect

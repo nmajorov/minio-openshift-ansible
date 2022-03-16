@@ -1,0 +1,10 @@
+---
+
+openshift_cli: oc
+
+
+# namespace there to install operators
+minio_namespace: "minio"
+tsl_secret_name: "niko-tsl-secret"
+minio_root_user: "AKIAIOSFODNN7EXAMPLE"
+minio_root_password: "wJalrXUtnFEMIK7MDENGbPxRfiCYEXAMPLEKEY"

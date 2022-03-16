@@ -19,19 +19,22 @@ ansible-galaxy collection install kubernetes.core
 
 2. Login to openshift using oc cli or kubectl
 
+```bash
+oc login --token=sha256~NGCzGV7qql --server=https://api.cluster:6443
+
 ```
-``
+
 3. Change default variables
 
 check role/defaults folder for default variables
 
 ```
-# namespace there to install minio
+
 minio_namespace: "minio"
 tsl_secret_name: "niko-tsl-secret"
 minio_root_user: "AKIAIOSFODNN7EXAMPLE"
 minio_root_password: "wJalrXUtnFEMIK7MDENGbPxRfiCYEXAMPLEKEY"
-# storage for minio data
+
 minio_storage_size: 10Gi
 
 ```
@@ -43,6 +46,7 @@ Deploy operators with command:
 ```bash
 
  ansible-playbook site.yaml
+ 
 ```
 
 

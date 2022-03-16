@@ -8,3 +8,4 @@ minio_namespace: "minio"
 tsl_secret_name: "niko-tsl-secret"
 minio_root_user: "AKIAIOSFODNN7EXAMPLE"
 minio_root_password: "wJalrXUtnFEMIK7MDENGbPxRfiCYEXAMPLEKEY"
+minio_storage_size: 10Gi

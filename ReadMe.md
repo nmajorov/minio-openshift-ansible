@@ -41,7 +41,7 @@ minio_storage_size: 10Gi
 
 ## Deploy on openshift
 
-Deploy operators with command:
+Deploy  with command:
 
 ```bash
 
